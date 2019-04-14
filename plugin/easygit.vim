@@ -1,3 +1,11 @@
+" ============================================================================
+" Author: Qiming Zhao
+" Maintainer: Robert Audi
+" Licence: MIT licence
+" Version: 0.7.0
+" Last Modified: Apr 14, 2019
+" ============================================================================
+
 if exists('g:did_easygit_loaded')
   finish
 endif

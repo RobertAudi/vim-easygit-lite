@@ -1,8 +1,9 @@
 " ============================================================================
 " Description: Functions used by easygit
-" Author: Qiming Zhao <chemzqm@gmail.com>
+" Author: Qiming Zhao
+" Maintainer: Robert Audi
 " Licence: MIT licence
-" Version: 0.2.1
+" Version: 0.7.0
 " Last Modified: Apr 14, 2019
 " ============================================================================
 

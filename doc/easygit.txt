@@ -11,13 +11,14 @@
        :: ::::  ::   :::  :::: ::      ::     ::: ::::   ::     ::    ~
        : :: ::    :   : :  :: : :       :      :: :: :   :       :    ~
                                                                       ~
-Author          : Qiming Zhao <chemzqm@gmail.com>
-Version         : 0.6.0
+Author          : Qiming Zhao
+Maintainer      : Robert Audi
+Version         : 0.7.0
 Last Change     : Apr 14, 2019
 
 License : MIT license {{{
 
-  Copyright (c) 2016 chemzqm@gmail.com
+  Copyright (c) 2019 Robert Audi
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
@@ -191,6 +192,11 @@ easygit#complete({file}, {branch}, {tag}, {cwd})              *easygit#complete*
 
 ==============================================================================
 4. Changelog                                                 *easygit-changelog*
+
+0.7.0   2019-04-14
+
+        - Remove all commands except for `:Gblame` and `:GdiffThis`
+        - Drop Windows support
 
 0.6.0   2018-04-02
 
