@@ -62,10 +62,9 @@ myself, because I found the code of vim-fugitive too hard to extend from, and
 many of the features I don't need. To be honest, easygit borrows some code from
 vim-fugitive, thanks for open source :)
 
-This is a fundamental implementation, some features may not works in systems
-like windows, and sometimes it may not works as expected, but I've tried hard
-to make it not break anything, and works friendly for everyone as much as
-possible.  Let me know if you got any problem
+This is a fundamental implementation, and sometimes it may not works as
+expected, but I've tried hard to make it not break anything, and works
+friendly for everyone as much as possible.  Let me know if you got any problem
 https://github.com/chemzqm/easygit/issues
 
 ==============================================================================
@@ -83,8 +82,6 @@ PREREQUIREMENT				*easygit-prerequirement*
 
 Make sure your vim version is 7.0+, and you have git version above 2.0.0 (It
 may works with git < 2.0.0, but who knows)
-
-Some command use command line utilities, they possibly not works on windows.
 
 ==============================================================================
 PHILOSOPHY				*easygit-philosophy*

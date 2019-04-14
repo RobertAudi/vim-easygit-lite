@@ -6,7 +6,6 @@
 " Last Modified: Apr 14, 2019
 " ============================================================================
 let s:nomodeline = (v:version > 703 || (v:version == 703 && has('patch442'))) ? '<nomodeline>' : ''
-let s:is_win = has("win32") || has('win64')
 
 " Extract git directory by path
 " if suspend is given as a:1, no error message
@@ -60,7 +59,7 @@ function! easygit#show(args, option) abort
   if empty(gitdir) | let gitdir = easygit#gitdir(expand('%')) | endif
   if empty(gitdir) | return | endif
   let showall = get(a:option, 'all', 0)
-  let format = "--pretty=format:'".s:escape("commit %H%nparent %P%nauthor %an <%ae> %ad%ncommitter %cn <%ce> %cd%n %e%n%n%s%n%n%b")."' "
+  let format = "--pretty=format:'commit %H%nparent %P%nauthor %an <%ae> %ad%ncommitter %cn <%ce> %cd%n %e%n%n%s%n%n%b' "
   if showall
     let command = 'git --no-pager'
       \. ' --git-dir=' . gitdir
@@ -354,7 +353,7 @@ function! s:execute(cmd, option) abort
   execute edit . ' ' . a:option.title
   exe 'nnoremap <buffer> <silent> q :call <SID>SmartQuit("' . edit . '")<cr>'
   let b:easygit_prebufnr = bnr
-  let eol = s:is_win ? '\v\n' : '\v\r?\n'
+  let eol = '\v\r?\n'
   let list = split(output, eol)
   if len(list)
     call setline(1, list[0])
@@ -411,17 +410,6 @@ function! s:message(msg)
   echohl MoreMsg | echon a:msg | echohl None
 endfunction
 
-function! s:winshell() abort
-  return &shell =~? 'cmd' || exists('+shellslash') && !&shellslash
-endfunction
-
-function! s:escape(str)
-  if s:winshell()
-    let cmd_escape_char = &shellxquote == '(' ?  '^' : '^^^'
-    return substitute(a:str, '\v\C[<>]', cmd_escape_char, 'g')
-  endif
-  return a:str
-endfunction
 
 function! s:ResetGutter(bufnr)
   if exists('*gitgutter#process_buffer')
