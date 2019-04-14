@@ -1,30 +1,41 @@
-if exists('g:did_easygit_loaded') || v:version < 700
+if exists('g:did_easygit_loaded')
   finish
 endif
 let g:did_easygit_loaded = 1
 
 " Restore diff status if no diff buffer open
 function! s:Onbufleave()
-  let wnr = +bufwinnr(+expand('<abuf>'))
-  let val = getwinvar(wnr, 'easygit_diff_origin')
-  if !len(val) | return | endif
-  for i in range(1, winnr('$'))
-    if i == wnr | continue | endif
-    if len(getwinvar(i, 'easygit_diff_origin'))
+  let l:wnr = +bufwinnr(+expand('<abuf>'))
+  let l:val = getwinvar(l:wnr, 'easygit_diff_origin')
+
+  if !len(l:val)
+    return
+  endif
+
+  for l:i in range(1, winnr('$'))
+    if l:i == l:wnr
+      continue
+    endif
+
+    if len(getwinvar(l:i, 'easygit_diff_origin'))
       return
     endif
   endfor
-  let wnr = bufwinnr(val)
-  if wnr > 0
-    exe wnr . "wincmd w"
+
+  let l:wnr = bufwinnr(l:val)
+
+  if l:wnr > 0
+    execute l:wnr . 'wincmd w'
+
     diffoff
   endif
 endfunction
 
 function! s:DiffThis(arg)
-  let ref = len(a:arg) ? a:arg : 'head'
-  let edit = get(g:, 'easygit_diff_this_edit', 'vsplit')
-  call easygit#diffThis(ref, edit)
+  let l:ref = len(a:arg) ? a:arg : 'head'
+  let l:edit = get(g:, 'easygit_diff_this_edit', 'vsplit')
+
+  call easygit#diffThis(l:ref, l:edit)
 endfunction
 
 " File and Branch
@@ -34,12 +45,14 @@ endfunction
 
 augroup easygit
   autocmd!
+
   autocmd BufWinLeave __easygit__file* call s:Onbufleave()
 augroup END
 
 if get(g:, 'easygit_enable_command', 0)
-  command! -nargs=0 Gblame                         :call easygit#blame()
-  command! -nargs=? -complete=custom,s:CompleteDiffThis  GdiffThis  :call s:DiffThis(<q-args>)
+  command! -nargs=0 Gblame call easygit#blame()
+  command! -nargs=? -complete=custom,s:CompleteDiffThis GdiffThis call s:DiffThis(<q-args>)
 endif
 
-"vim:set et sw=2 ts=2 tw=80 foldmethod=syntax fen:
+" Modeline {{{
+" vim: set foldmarker={{{,}}} foldlevel=0 foldmethod=marker : }}}

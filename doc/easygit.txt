@@ -1,4 +1,4 @@
-*easygit.txt*	a git wrapper focus on simplily and usability
+*easygit.txt*   a git wrapper focus on simplily and usability
 
        @@@@@@@@   @@@@@@    @@@@@@   @@@ @@@   @@@@@@@@  @@@  @@@@@@@ ~
        @@@@@@@@  @@@@@@@@  @@@@@@@   @@@ @@@  @@@@@@@@@  @@@  @@@@@@@ ~
@@ -8,12 +8,12 @@
        !!!!!:    !!!@!!!!   !!@!!!     @!!!   !!! !!@!!  !!!    !!!   ~
        !!:       !!:  !!!       !:!    !!:    :!!   !!:  !!:    !!:   ~
        :!:       :!:  !:!      !:!     :!:    :!:   !::  :!:    :!:   ~
-       :: ::::  ::   :::  :::: ::      ::     ::: ::::   ::     ::   ~
+       :: ::::  ::   :::  :::: ::      ::     ::: ::::   ::     ::    ~
        : :: ::    :   : :  :: : :       :      :: :: :   :       :    ~
-                                     ~
-Author		: Qiming Zhao <chemzqm@gmail.com>
-Version		: 0.6.0
-Last Change	: Apr 14, 2019
+                                                                      ~
+Author          : Qiming Zhao <chemzqm@gmail.com>
+Version         : 0.6.0
+Last Change     : Apr 14, 2019
 
 License : MIT license {{{
 
@@ -40,239 +40,212 @@ License : MIT license {{{
 }}}
 
 ==============================================================================
-CONTENTS				*easygit-contents*
+CONTENTS                                                       *easygit-contents*
 
-INTRODUCTION		|easygit-introduction|
-PREREQUIREMENT		|easygit-prerequirement|
-PHILOSOPHY		|easygit-philosophy|
-INSTALLATION		|easygit-installation|
-INTERFACE		|easygit-interface|
-  COMMANDS			|easygit-commands|
-  VARIABLES			|easygit-variables|
-  KEYMAPPING			|easygit-keymapping|
-  FUNCTIONS			|easygit-functions|
-CHANGELOG		|easygit-changelog|
-TODO			|easygit-todo|
+     1. Introduction.......................|easygit-introduction|
+     2. Philosophy.........................|easygit-philosophy|
+     3. Interface..........................|easygit-interface|
+        3.1. Commands......................|easygit-commands|
+        3.2. Variables.....................|easygit-variables|
+        3.3. Keymapping....................|easygit-keymapping|
+        3.4. Functions.....................|easygit-functions|
+     4. Changelog..........................|easygit-changelog|
 
 ==============================================================================
-INTRODUCTION				*easygit-introduction*
+1. Introduction                                           *easygit-introduction*
 
-Easygit's original goal was to replace https://github.com/tpope/vim-fugitive for
-myself, because I found the code of vim-fugitive too hard to extend from, and
-many of the features I don't need. To be honest, easygit borrows some code from
-vim-fugitive, thanks for open source :)
+Easygit's original goal was to replace https://github.com/tpope/vim-fugitive
+for myself, because I found the code of vim-fugitive too hard to extend from,
+and many of the features I don't need. To be honest, easygit borrows some
+code from vim-fugitive, thanks for open source :)
 
 This is a fundamental implementation, and sometimes it may not works as
 expected, but I've tried hard to make it not break anything, and works
-friendly for everyone as much as possible.  Let me know if you got any problem
-https://github.com/chemzqm/easygit/issues
+friendly for everyone as much as possible.
 
 ==============================================================================
-INSTALLATION				*easygit-installation*
-
-Install with your favorite plugin managers like NeoBundle/Plugin/Plug
->
->
-	NeoBundle 'chemzqm/easygit'
-	Plugin 'chemzqm/easygit'
-	Plug 'chemzqm/easygit'
-
-==============================================================================
-PREREQUIREMENT				*easygit-prerequirement*
-
-Make sure your vim version is 7.0+, and you have git version above 2.0.0 (It
-may works with git < 2.0.0, but who knows)
-
-==============================================================================
-PHILOSOPHY				*easygit-philosophy*
+2. Philosophy                                               *easygit-philosophy*
 
 Easygit tris hard to works well 80% of daily usage git commands while avoid
 overhead complexity.
 
-	* All commands work on the git repository of current file, not current
-	CWD!!  This could be a life saving if you switch the file of different
-	repo a lot.
+    * All commands work on the git repository of current file, not current
+      CWD!!  This could be a life saving if you switch the file of different
+      repo a lot.
 
-	* Commands would always available, just set |g:easygit_enable_command|
-	to 1
+    * Commands would always available, just set |g:easygit_enable_command|
+      to 1
 
-	* No useless messages any more, no press any key to continue
-	
-	* Expose autoload functions, could be used anywhere.
-	
-	* Well designed default options, works out of box.
+    * No useless messages any more, no press any key to continue
 
-	* Friendly to other plugins, commands are disabled by default to avoid
-	conflict, |buftype| are set to nofile and |bufhidden| are set to
-	delete for the temporary buffers.
+    * Expose autoload functions, could be used anywhere.
 
-	* Enhanced gitlog support, implemented in a separate plugin
-	https://github.com/chemzqm/unite-git-log, which make use of |unite.vim|
+    * Well designed default options, works out of box.
+
+    * Friendly to other plugins, commands are disabled by default to avoid
+      conflict, |buftype| are set to nofile and |bufhidden| are set to delete
+      for the temporary buffers.
+
+    * Enhanced gitlog support, implemented in a separate plugin
+      https://github.com/chemzqm/unite-git-log, which make use of |unite.vim|
 
 ==============================================================================
-INTERFACE				*easygit-interface*
+3. Interface                                                 *easygit-interface*
 
 Easygit comes with some commands to help you work with git, but you can turn
 them off (see |easygit-variable|) if you still want have fugitive installed.
 
 ------------------------------------------------------------------------------
-COMMANDS 				*easygit-commands*
+3.1. Commands                                                 *easygit-commands*
 
 All commands are disabed by default to avoid conflict, you have to use
 |g:easygit_enable_command| to enable them.
 
-:GdiffThis [{revison}]				*:GdiffThis*
-		Diff current file with the same one in revision(default head)
-		side by side.  The diff status would be restored after you
-		quit all diff buffer.
+:GdiffThis [{revison}]                          *:GdiffThis*
+                Diff current file with the same one in revision(default head)
+                side by side.  The diff status would be restored after you
+                quit all diff buffer.
 
-:Gblame 					*:Gblame*
-		Run git blame with current buffer, the blame buffer would take
-		place of current buffer, you can make use of |easygit-d| and
-		|easygit-p| to interactive with this buffer.
+:Gblame                                         *:Gblame*
+                Run git blame with current buffer, the blame buffer would take
+                place of current buffer, you can make use of |easygit-d| and
+                |easygit-p| to interactive with this buffer.
 
-==============================================================================
-VARIABLES 				*easygit-variables*
+------------------------------------------------------------------------------
+3.2. Variables                                               *easygit-variables*
 
 Easygit have well designed default options, but you still can customize it
 with golbal variables.
 
-------------------------------------------------------------------------------
-
 *g:easygit_enable_root_rev_parse*
 
-	Use `git rev-parse --show-toplevel` to find git root instead of find
-	`.git` directory, it's slower.
+        Use `git rev-parse --show-toplevel` to find git root instead of find
+        `.git` directory, it's slower.
 
 *g:easygit_enable_command*
-	Commands are disabled by default to make it works with |fugitive|
-	without any effort.  To enable the commands of easygit, use: >
+        Commands are disabled by default to make it works with |fugitive|
+        without any effort.  To enable the commands of easygit, use: >
 
-		let easygit_enable_command = 1
+                let easygit_enable_command = 1
 
 *g:easygit_diff_this_edit*
-	The edit command for |:GdiffThis|, default value is {vsplit}
+        The edit command for |:GdiffThis|, default value is {vsplit}
 
-==============================================================================
-KEYMAPING				 *easygit-keymapping*
+------------------------------------------------------------------------------
+3.3. Keymaping                                              *easygit-keymapping*
 
 Easygit comes with some handy buffer local key mapping to make your works easier
 with the generated buffers.
 
+q                                                                  *n_easygit_q*
+
+                Smart quite the temporary buffer, if it's open by |:edit| or
+                |:pedit| command, the window would be restored to the previous
+                buffer, otherwise, the window will be closed.
+
+u                                                                  *n_easygit_u*
+
+                Open parent commit, works only with buffer git show command
+                Combine with |n_easygit_d|, you can navigate git tree up and
+                down easily
+
+d                                                                  *n_easygit_d*
+
+                Could means {down} or {diff} depends on the current buffer.
+
+                When in buffer from showing a ref (see |n_easygit_p|), open
+                first child commit.
+
+                When in buffer from |:Gblame|, run |:GdiffThis| with the
+                commit of current line
+
+p                                                                  *n_easygit_p*
+
+                Open a buffer that contains the output from git show with ref
+                in current line, works only in buffer of |:Gblame|
+
+
 ------------------------------------------------------------------------------
-
-q					*n_easygit_q*
-
-		Smart quite the temporary buffer, if it's open by |:edit| or
-		|:pedit| command, the window would be restored to the previous
-		buffer, otherwise, the window will be closed.
-
-u					*n_easygit_u*
-
-		Open parent commit, works only with buffer git show command
-		Combine with |n_easygit_d|, you can navigate git tree up and
-		down easily
-
-d					*n_easygit_d*
-		
-		Could means {down} or {diff} depends on the current buffer.
-
-		When in buffer from |:Gedit|, open first child commit.
-
-		When in buffer from |:Gblame|, run |:GdiffThis| with the
-		commit of current line
-
-p					*n_easygit_p*
-
-		Run |:Gedit| with ref in current line, works only in buffer
-		of |:Gblame|
-
-
-==============================================================================
-FUNCTIONS				 *easygit-functions*
+3.4. Functions                                               *easygit-functions*
 
 Easygit exports some useful functions.
 
-------------------------------------------------------------------------------
+easygit#gitdir([{path}])                                        *easygit#gitdir*
+                Extract git directory by given {path}.
 
-easygit#gitdir([{path}])				*easygit#gitdir*
-		Extract git directory by given {path}.
+easygit#show([{commit}], [{option}])                              *easygit#show*
+                Run git show with {commit} as options, specify edit mode by
+                config option.edit
 
-easygit#show([{commit}], [{option}])			*easygit#show*
-		Run git show with {commit} as options, specify edit mode by
-		config option.edit
+easygit#diffThis({commit}, [{edit}])                          *easygit#diffThis*
+                Diff current file with {commit}, use {edit} to change edit mode
 
-easygit#diffThis({commit}, [{edit}])			*easygit#diffThis*
-		Diff current file with {commit}, use {edit} to change edit mode
+easygit#blame([{edit}]])                                         *easygit#blame*
+                Open git blame buffer of current buffer with optinal {edit} method,
+                |:edit| by default
 
-easygit#blame([{edit}]])				*easygit#blame*
-		Open git blame buffer of current buffer with optinal {edit} method,
-		|:edit| by default
-
-easygit#complete({file}, {branch}, {tag}, {cwd})	*easygit#complete*
-		Get the list of git objects for complete, possibly including
-		{file}, {branch}, {tag}, result is a string separated by line
-		break. If {cwd} is true, extract git directory from CWD.
+easygit#complete({file}, {branch}, {tag}, {cwd})              *easygit#complete*
+                Get the list of git objects for complete, possibly including
+                {file}, {branch}, {tag}, result is a string separated by line
+                break. If {cwd} is true, extract git directory from CWD.
 
 ==============================================================================
-CHANGELOG				*easygit-changelog*
+4. Changelog                                                 *easygit-changelog*
 
 0.6.0   2018-04-02
-	
-	- Use $GIT_DIR or `git rev-parse --show-toplevel` to find git root
-	  directory by default.
-	- Add :Gread command
-	- :Gadd works with current file by default
+
+        - Use `$GIT_DIR` or `git rev-parse --show-toplevel` to find git root
+          directory by default.
+        - Add `:Gread` command
+        - `:Gadd` works with current file by default
 
 
 0.5.1   2017-06-14
 
-	- add easygit#diffPreview function
+        - add `easygit#diffPreview` function
 
 0.5.0   2017-02-06
 
-	- support auto tcd by `g:easygit_auto_tcd`
+        - support auto tcd by `g:easygit_auto_tcd`
 
 0.4.3   2017-1-8
 
-	- Check for empty parent commit on commit up
-	- Fix error documentation
+        - Check for empty parent commit on commit up
+        - Fix error documentation
 
 0.4.2   2016-12-6
 
-	- use timer for commit callback
+        - use timer for commit callback
 
 0.4.1   2016-5-2
 
-	- fix previous comment navigate not working
+        - fix previous comment navigate not working
 
 0.4.0   2016-1-25
 
-	- Improve complete for Gcommit
-	- add |:Greset| |:Grevert|
+        - Improve complete for `Gcommit`
+        - add `:Greset` `:Grevert`
 
-0.3.0	2016-1-8
+0.3.0   2016-1-8
 
-	- Break change: disable commands by default
-	- add |:Gstatus| |:Gadd|
-	- add |:Ggrep| |:Gmerge|
+        - Break change: disable commands by default
+        - add `:Gstatus` `:Gadd`
+        - add `:Ggrep` `:Gmerge`
 
-0.2.1	2016-1-6
+0.2.1   2016-1-6
 
-	- Use smartRoot for command root
-	- added Gpull Gpush Gfetch
+        - Use `smartRoot` for command root
+        - added `Gpull`, `Gpush`, `Gfetch`
 
-0.2.0	2016-1-5
+0.2.0   2016-1-5
 
-	- added Gmv Grm and Grename
-	- added easygit_auto_lcd option
-	- added complete functions for all commands
+        - added `Gmv`, `Grm` and `Grename`
+        - added `easygit_auto_lcd` option
+        - added complete functions for all commands
 
 
-0.1.0	2016-1-4
+0.1.0   2016-1-4
 
-	- init.
+        - init.
 
-==============================================================================
-
-vim:tw=78:nosta:ts=8:sts=0:ft=help:noet:fen:fdm=marker:
+vim:tw=78:ts=8:ft=help:norl:
