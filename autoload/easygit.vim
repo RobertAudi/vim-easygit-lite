@@ -69,6 +69,8 @@ function! s:execute(cmd, option) abort
   let l:list = split(l:output, '\v\r?\n')
 
   if len(l:list)
+    setlocal noreadonly
+
     call setline(1, l:list[0])
     silent! call append(1, l:list[1:])
   endif
