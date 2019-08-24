@@ -1,6 +1,8 @@
 Easygit
 =======
 
+**The development of vim-gita has stopped. You should use [RobertAudi/git-blame.vim](https://github.com/RobertAudi/git-blame.vim) instead.**
+
 A git wrapper plugin made to replace [fugitive](https://github.com/tpope/vim-fugitive), it can be used together with fugitive as commands are disabled by default.
 
 The goal make cleaner code, and be more friendly to user (especially using with macvim)
